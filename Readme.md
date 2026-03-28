@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
 * Студент: [Дима Олейниченко](https://up.htmlacademy.ru/ecmascript-individual/2/user/2596319).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Беллавин](https://htmlacademy.ru/profile/bellavin).
 
 ---
 
