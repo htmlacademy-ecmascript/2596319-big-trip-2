@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import { createElement } from '../../render.js';
 
 function createElementTemplate() {
   return `<div class="event__photos-container" bis_skin_checked="1">

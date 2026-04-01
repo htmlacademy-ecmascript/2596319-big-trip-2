@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import { createElement } from '../../render.js';
 
 function createElementTemplate() {
   return `<button class="event__reset-btn"

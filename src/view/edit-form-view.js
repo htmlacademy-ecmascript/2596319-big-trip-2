@@ -1,42 +1,14 @@
-import EventTypeView from './event-type-view.js';
-import DestinationInputView from './destination-input-view.js';
-import TimeInputView from './time-input-view.js';
-import PriceInputView from './price-input-view.js';
-import SaveButtonView from './save-button-view.js';
-import CancelButtonView from './cancel-button-view.js';
-import DestinationBlockView from './destination-block-view.js';
-import RollupButtonView from './rollup-button-view.js';
-import OffersCheckboxesContainerView from './offers-checkboxes-container.js';
+import EventTypeView from './form-elements/event-type-view.js';
+import DestinationInputView from './form-elements/destination-input-view.js';
+import TimeInputView from './form-elements/time-input-view.js';
+import PriceInputView from './form-elements/price-input-view.js';
+import SaveButtonView from './form-elements/save-button-view.js';
+import CancelButtonView from './form-elements/cancel-button-view.js';
+import DestinationBlockView from './form-elements/destination-block-view.js';
+import RollupButtonView from './form-elements/rollup-button-view.js';
+import OffersCheckboxesContainerView from './form-elements/offers-checkboxes-container.js';
 import { render } from '../render.js';
-
-const offers = [
-  {
-    title: 'Add luggage',
-    price: '50',
-    id: 'luggage-1'
-  },
-  {
-    title: 'Switch to comfort class',
-    price: '80',
-    id: 'comfort-1'
-  },
-  {
-    title: 'Add meal',
-    price: '15',
-    id: 'meal-1'
-  },
-  {
-    title: 'Choose seats',
-    price: '5',
-    id: 'seats-1'
-  },
-  {
-    title: 'Travel by train',
-    price: '40',
-    id: 'train-1'
-  },
-];
-
+import { offersMocks } from './mocks.js';
 
 function createElementTemplate() {
   return (
@@ -81,7 +53,7 @@ export default class EditFormView {
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
     render(new RollupButtonView(), header);
-    const offersComponent = new OffersCheckboxesContainerView(offers);
+    const offersComponent = new OffersCheckboxesContainerView(offersMocks);
     render(offersComponent, details);
     render(new DestinationBlockView(), details);
   }

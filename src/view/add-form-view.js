@@ -9,34 +9,9 @@ import RollupButtonView from './rollup-button-view.js';
 import OffersCheckboxesContainerView from './offers-checkboxes-container.js';
 import DestinationPhotosView from './destination-photos-view.js';
 import { render } from '../render.js';
+import { offersMocks } from './mocks.js';
 
-const offers = [
-  {
-    title: 'Add luggage',
-    price: '30',
-    id: 'luggage-1'
-  },
-  {
-    title: 'Switch to comfort class',
-    price: '100',
-    id: 'comfort-1'
-  },
-  {
-    title: 'Add meal',
-    price: '15',
-    id: 'meal-1'
-  },
-  {
-    title: 'Choose seats',
-    price: '5',
-    id: 'seats-1'
-  },
-  {
-    title: 'Travel by train',
-    price: '40',
-    id: 'train-1'
-  },
-];
+
 
 function createElementTemplate() {
   return (
@@ -83,7 +58,7 @@ export default class AddFormView {
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
     render(new RollupButtonView(), header);
-    const offersComponent = new OffersCheckboxesContainerView(offers);
+    const offersComponent = new OffersCheckboxesContainerView(offersMocks);
     render(offersComponent, details);
     render(new DestinationBlockView(), details);
     render(new DestinationPhotosView(), details);

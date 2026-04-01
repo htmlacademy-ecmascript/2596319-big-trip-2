@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import { createElement } from '../../render.js';
 
 function createElementTemplate() {
   return `<div class="event__field-group  event__field-group--destination" bis_skin_checked="1">

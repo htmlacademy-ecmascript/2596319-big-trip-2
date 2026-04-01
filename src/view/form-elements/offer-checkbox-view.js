@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import { createElement } from '../../render.js';
 
 function createElementTemplate(offer) {
   const {title, price, id} = offer; // Ось тут була помилка, бо offer був undefined
