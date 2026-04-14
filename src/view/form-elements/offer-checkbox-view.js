@@ -1,7 +1,7 @@
 import { createElement } from '../../render.js';
 
 function createElementTemplate(offer) {
-  const {title, price, id} = offer; // Ось тут була помилка, бо offer був undefined
+  const {title, price, id} = offer;
   return `
     <div class="event__offer-selector">
       <input class="event__offer-checkbox  visually-hidden" id="event-offer-${id}" type="checkbox" name="event-offer-${id}">
