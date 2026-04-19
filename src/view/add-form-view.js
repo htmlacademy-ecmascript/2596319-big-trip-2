@@ -1,17 +1,15 @@
-import EventTypeView from './event-type-view.js';
-import DestinationInputView from './destination-input-view.js';
-import TimeInputView from './time-input-view.js';
-import PriceInputView from './price-input-view.js';
-import SaveButtonView from './save-button-view.js';
-import CancelButtonView from './cancel-button-view.js';
-import DestinationBlockView from './destination-block-view.js';
-import RollupButtonView from './rollup-button-view.js';
-import OffersCheckboxesContainerView from './offers-checkboxes-container.js';
-import DestinationPhotosView from './destination-photos-view.js';
+import EventTypeView from './form-elements/event-type-view.js';
+import DestinationInputView from './form-elements/destination-input-view.js';
+import TimeInputView from './form-elements/time-input-view.js';
+import PriceInputView from './form-elements/price-input-view.js';
+import SaveButtonView from './form-elements/save-button-view.js';
+import CancelButtonView from './form-elements/cancel-button-view.js';
+import DestinationBlockView from './form-elements/destination-block-view.js';
+import RollupButtonView from './form-elements/rollup-button-view.js';
+import OffersCheckboxesContainerView from './form-elements/offers-checkboxes-container.js';
+import DestinationPhotosView from './form-elements/destination-photos-view.js';
 import { render } from '../render.js';
-import { offersMocks } from './mocks.js';
-
-
+import { offersMocks } from '../model/mocks.js';
 
 function createElementTemplate() {
   return (

@@ -1,22 +1,32 @@
 import { createElement } from '../../render.js';
 
-function createElementTemplate() {
+function createElementTemplate(type, destination, allDestinations) {
+  const name = destination ? destination.name : '';
+
+  const datalistTemplate = allDestinations
+    .map((dest) => `<option value="${dest.name}"></option>`)
+    .join('');
+
   return `<div class="event__field-group  event__field-group--destination" bis_skin_checked="1">
-                    <label class="event__label  event__type-output" for="event-destination-1">
-                      Flight
-                    </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
-                    <datalist id="destination-list-1">
-                      <option value="Amsterdam"></option>
-                      <option value="Geneva"></option>
-                      <option value="Chamonix"></option>
-                    </datalist>
-                  </div>`;
+            <label class="event__label  event__type-output" for="event-destination-1">
+              ${type}
+            </label>
+            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
+            <datalist id="destination-list-1">
+              ${datalistTemplate}
+            </datalist>
+          </div>`;
 }
 
 export default class DestinationInputView {
+  constructor(type, destination, allDestinations) {
+    this.type = type;
+    this.destination = destination;
+    this.allDestinations = allDestinations;
+  }
+
   getTemplate() {
-    return createElementTemplate();
+    return createElementTemplate(this.type, this.destination, this.allDestinations);
   }
 
   getElement() {
