@@ -11,6 +11,7 @@ export default class BoardPresenter {
     this.destinationsModel = destinationsModel;
     this.offersModel = offersModel;
   }
+  //1
 
   init() {
     this.listComponent = new ListView();
