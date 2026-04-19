@@ -2,29 +2,21 @@ import SortView from '../view/sort-view.js';
 import EditFormView from '../view/edit-form-view.js';
 import PointView from '../view/point-view.js';
 import { render } from '../render.js';
+import ListView from '../view/form-elements/list-view.js';
 
 export default class BoardPresenter {
-  listElement = null;
-
-  listComponent = {
-    getElement: () => {
-      if (!this.listElement) {
-        this.listElement = document.createElement('ul');
-        this.listElement.className = 'trip-events__list';
-      }
-      return this.listElement;
-    }
-  };
-
-  constructor({ boardContainer, pointsModel }) {
+  constructor({ boardContainer, pointsModel, destinationsModel, offersModel }) {
     this.boardContainer = boardContainer;
     this.pointsModel = pointsModel;
+    this.destinationsModel = destinationsModel;
+    this.offersModel = offersModel;
   }
 
   init() {
-    this.boardPoints = [...this.pointsModel.getPoints()];
-    this.destinations = [...this.pointsModel.getDestinations()];
-    this.offers = [...this.pointsModel.getOffers()];
+    this.listComponent = new ListView();
+    this.boardPoints = [...this.pointsModel.fetchPoints()];
+    this.destinations = [...this.destinationsModel.fetchDestinations()];
+    this.offers = [...this.offersModel.fetchOffers()];
 
     render(new SortView(), this.boardContainer);
     render(this.listComponent, this.boardContainer);
@@ -35,8 +27,7 @@ export default class BoardPresenter {
       this.offers
     ), this.listComponent.getElement());
 
-    for (let i = 0; i < this.boardPoints.length; i++) {
-      const point = this.boardPoints[i];
+    for (const point of this.boardPoints) {
       const destination = this.destinations.find((dest) => dest.id === point.destination);
       const offersByType = this.offers.find((opt) => opt.type === point.type).offers;
       const selectedOffers = offersByType.filter((opt) => point.offers.includes(opt.id));

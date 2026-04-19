@@ -1,21 +1,11 @@
-import { pointsMocks, destinationsMocks, offersMocks } from './mocks.js';
+import { pointsMocks } from './mocks.js';
 
 export default class PointsModel {
   constructor() {
     this.points = pointsMocks;
-    this.destinations = destinationsMocks;
-    this.offers = offersMocks;
   }
 
-  getPoints() {
+  fetchPoints() {
     return this.points;
-  }
-
-  getDestinations() {
-    return this.destinations;
-  }
-
-  getOffers() {
-    return this.offers;
   }
 }

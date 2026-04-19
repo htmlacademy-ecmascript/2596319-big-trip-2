@@ -1,7 +1,7 @@
 import { createElement } from '../render.js';
 
 function createElementTemplate(point, destination, offers) {
-  const { basePrice, type, isFavorite } = point;
+  const { basePrice, type, isFavorite, dateFrom, dateTo } = point;
 
   const offersTemplate = offers.map((offer) => `
                 <li class="event__offer">
@@ -13,16 +13,16 @@ function createElementTemplate(point, destination, offers) {
   const favoriteClass = isFavorite ? 'event__favorite-btn--active' : '';
   return `<li class="trip-events__item">
             <div class="event" bis_skin_checked="1">
-              <time class="event__date" datetime="2019-03-18">MAR 18</time>
+              <time class="event__date" datetime="${dateFrom}">${dateFrom}</time>
               <div class="event__type" bis_skin_checked="1">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
               </div>
               <h3 class="event__title">${type} ${destination.name}</h3>
               <div class="event__schedule" bis_skin_checked="1">
                 <p class="event__time">
-                  <time class="event__start-time" datetime="2019-03-18T14:30">14:30</time>
+                  <time class="event__start-time" datetime="${dateFrom}">${dateFrom}</time>
                   —
-                  <time class="event__end-time" datetime="2019-03-18T16:05">16:05</time>
+                  <time class="event__end-time" datetime="${dateTo}">${dateTo}</time>
                 </p>
                 <p class="event__duration">01H 35M</p>
               </div>
