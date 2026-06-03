@@ -8,6 +8,7 @@ import DestinationBlockView from './form-elements/destination-block-view.js';
 import RollupButtonView from './form-elements/rollup-button-view.js';
 import OffersCheckboxesContainerView from './form-elements/offers-checkboxes-container.js';
 import DestinationPhotosView from './form-elements/destination-photos-view.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { render } from '../render.js';
 import { offersMocks } from '../model/mocks.js';
 
@@ -22,30 +23,21 @@ function createElementTemplate() {
     </li>`
   );
 }
-export default class AddFormView {
+
+export default class AddFormView extends AbstractView {
+  #offers = null;
+
   constructor(offers) {
-    this.offers = offers;
+    super();
+    this.#offers = offers;
+    this.#renderForm();
   }
 
-  getTemplate() {
+  get template() {
     return createElementTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = this.createElement(this.getTemplate());
-      this.renderForm();
-    }
-    return this.element;
-  }
-
-  createElement(template) {
-    const newElement = document.createElement('div');
-    newElement.innerHTML = template;
-    return newElement.firstElementChild;
-  }
-
-  renderForm() {
+  #renderForm() {
     const header = this.element.querySelector('.event__header');
     const details = this.element.querySelector('.event__details');
 
@@ -56,8 +48,10 @@ export default class AddFormView {
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
     render(new RollupButtonView(), header);
+
     const offersComponent = new OffersCheckboxesContainerView(offersMocks);
     render(offersComponent, details);
+
     render(new DestinationBlockView(), details);
     render(new DestinationPhotosView(), details);
   }

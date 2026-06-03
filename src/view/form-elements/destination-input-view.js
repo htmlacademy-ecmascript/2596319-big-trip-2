@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 function createElementTemplate(type, destination, allDestinations) {
   const name = destination ? destination.name : '';
@@ -18,25 +18,19 @@ function createElementTemplate(type, destination, allDestinations) {
           </div>`;
 }
 
-export default class DestinationInputView {
+export default class DestinationInputView extends AbstractView {
+  #type = null;
+  #destination = null;
+  #allDestinations = null;
+
   constructor(type, destination, allDestinations) {
-    this.type = type;
-    this.destination = destination;
-    this.allDestinations = allDestinations;
+    super();
+    this.#type = type;
+    this.#destination = destination;
+    this.#allDestinations = allDestinations;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.type, this.destination, this.allDestinations);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createElementTemplate(this.#type, this.#destination, this.#allDestinations);
   }
 }

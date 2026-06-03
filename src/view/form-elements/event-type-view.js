@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 function createElementTemplate(type) {
   return `<div class="event__type-wrapper" bis_skin_checked="1">
@@ -61,23 +61,15 @@ function createElementTemplate(type) {
           </div>`;
 }
 
-export default class EventTypeView {
+export default class EventTypeView extends AbstractView {
+  #type = null;
+
   constructor(type) {
-    this.type = type;
+    super();
+    this.#type = type;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.type);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createElementTemplate(this.#type);
   }
 }

@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 function createElementTemplate(pictures) {
   if (!pictures || pictures.length === 0) {
@@ -16,23 +16,15 @@ function createElementTemplate(pictures) {
           </div>`;
 }
 
-export default class DestinationPhotosView {
+export default class DestinationPhotosView extends AbstractView {
+  #pictures = null;
+
   constructor(pictures) {
-    this.pictures = pictures;
+    super();
+    this.#pictures = pictures;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.pictures);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createElementTemplate(this.#pictures);
   }
 }
