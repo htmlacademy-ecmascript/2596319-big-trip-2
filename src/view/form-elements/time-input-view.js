@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view';
 
 function createElementTemplate(dateFrom, dateTo) {
   return `<div class="event__field-group  event__field-group--time" bis_skin_checked="1">
@@ -10,24 +10,17 @@ function createElementTemplate(dateFrom, dateTo) {
           </div>`;
 }
 
-export default class TimeInputView {
+export default class TimeInputView extends AbstractView{
+  #dateFrom = null;
+  #dateTo = null;
+
   constructor(dateFrom, dateTo) {
-    this.dateFrom = dateFrom;
-    this.dateTo = dateTo;
+    super();
+    this.#dateFrom = dateFrom;
+    this.#dateTo = dateTo;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.dateFrom, this.dateTo);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createElementTemplate(this.#dateFrom, this.#dateTo);
   }
 }

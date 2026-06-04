@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 function createElementTemplate(cityDescription) {
   return `<section class="event__section  event__section--destination">
@@ -7,23 +7,15 @@ function createElementTemplate(cityDescription) {
           </section>`;
 }
 
-export default class DestinationBlockView {
+export default class DestinationBlockView extends AbstractView {
+  #cityDescription = null;
+
   constructor(cityDescription) {
-    this.cityDescription = cityDescription;
+    super();
+    this.#cityDescription = cityDescription;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.cityDescription);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createElementTemplate(this.#cityDescription);
   }
 }

@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view';
 
 function createElementTemplate(offer) {
   const {title, price, id} = offer;
@@ -12,19 +12,15 @@ function createElementTemplate(offer) {
       </label>
     </div>`;
 }
-export default class OfferCheckboxView {
+export default class OfferCheckboxView extends AbstractView {
+  #offer = null;
+
   constructor(offer) {
-    this.offer = offer;
+    super();
+    this.#offer = offer;
   }
 
-  getTemplate() {
-    return createElementTemplate(this.offer);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
+  get template() {
+    return createElementTemplate(this.#offer);
   }
 }
