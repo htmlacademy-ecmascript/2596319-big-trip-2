@@ -11,7 +11,7 @@ const siteMainElement = document.querySelector('.trip-events');
 const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
 const offersModel = new OffersModel();
-
+//1
 const boardPresenter = new BoardPresenter({
   boardContainer: siteMainElement,
   pointsModel: pointsModel,
