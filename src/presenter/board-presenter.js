@@ -3,9 +3,13 @@ import PointView from '../view/point-view.js';
 import { render, replace } from '../framework/render.js';
 import ListView from '../view/form-elements/list-view.js';
 import EditFormView from '../view/edit-form-view.js';
+import NoEventView from '../view/no-event-view.js';
+import TripInfoView from '../view/trip-info-view.js';
+import { RenderPosition } from '../render.js';
 
 export default class BoardPresenter {
-  constructor({ boardContainer, pointsModel, destinationsModel, offersModel }) {
+  constructor({ boardHeader, boardContainer, pointsModel, destinationsModel, offersModel }) {
+    this.boardHeader = boardHeader;
     this.boardContainer = boardContainer;
     this.pointsModel = pointsModel;
     this.destinationsModel = destinationsModel;
@@ -18,8 +22,15 @@ export default class BoardPresenter {
     this.destinations = [...this.destinationsModel.fetchDestinations()];
     this.offers = [...this.offersModel.fetchOffers()];
 
+    render(new TripInfoView(this.boardPoints, this.offers), this.boardHeader, RenderPosition.AFTERBEGIN);
+
     render(new SortView(), this.boardContainer);
     render(this.listComponent, this.boardContainer);
+
+    if (this.boardPoints.length === 0) {
+      render(new NoEventView(), this.boardContainer);
+      return;
+    }
 
     for (const point of this.boardPoints) {
       const destination = this.destinations.find((dest) => dest.id === point.destination);
