@@ -10,14 +10,14 @@ import OffersCheckboxesContainerView from './form-elements/offers-checkboxes-con
 import AbstractView from '../framework/view/abstract-view.js';
 import { render } from '../render.js';
 
-const BLANK_POINT = {
-  basePrice: 0,
-  dateFrom: null,
-  dateTo: null,
-  destination: null,
-  isFavorite: false,
-  offers: [],
-  type: 'taxi',
+const BlankPoint = {
+  BASE_PRICE: 0,
+  DATE_FROM: null,
+  DATE_TO: null,
+  DESTINATION: null,
+  IS_FAVORITE: false,
+  OFFERS: [],
+  TYPE: 'taxi',
 };
 
 function createElementTemplate() {
@@ -38,7 +38,7 @@ export default class EditFormView extends AbstractView {
   #handleFormSubmit = null;
   #handleRollupClick = null;
 
-  constructor(point = BLANK_POINT, allDestinations, allOffers, { onFormSubmit, onRollupClick }) {
+  constructor(point = BlankPoint, allDestinations, allOffers, { onFormSubmit, onRollupClick }) {
     super();
     this.#point = point;
     this.#allDestinations = allDestinations;

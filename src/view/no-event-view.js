@@ -1,14 +1,15 @@
 import AbstractView from '../framework/view/abstract-view';
 
-const TEXTS = {
-  everything: 'Click New Event to create your first point',
-  past: 'There are no past events now',
-  present: 'There are no present events now',
-  future: 'There are no future events now'
+const Texts = {
+  EVERYTHING: 'Click New Event to create your first point',
+  PAST: 'There are no past events now',
+  PRESENT: 'There are no present events now',
+  FUTURE: 'There are no future events now',
 };
 
+
 function createElementTemplate(filterType) {
-  const noEventText = TEXTS[filterType] || TEXTS.everything;
+  const noEventText = Texts[filterType] || Texts.EVERYTHING;
   return `<p class="trip-events__msg">${noEventText}</p>`;
 }
 
