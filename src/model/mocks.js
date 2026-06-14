@@ -1,4 +1,4 @@
-export const destinationsMocks = [
+const destinationsMocks = [
   {
     id: 'dest-1',
     description: 'Chamonix, is a beautiful city, a true asian pearl, with crowded streets.',
@@ -16,14 +16,12 @@ export const destinationsMocks = [
   }
 ];
 
-export const pointsMocks = [
+const pointsMocks = [
   {
     id: 'point-0',
     basePrice: 1100,
-    // dateFrom: '2026-04-10T22:55:56.845Z',
-    dateFrom: '10 APR',
-    // dateTo: '2026-04-11T11:22:13.375Z',
-    dateTo: '11 APR',
+    dateFrom: '2026-04-10T22:55:56.845Z',
+    dateTo: '2026-04-11T11:22:13.375Z',
     destination: 'dest-1',
     isFavorite: false,
     offers: ['luggage-1'],
@@ -32,10 +30,8 @@ export const pointsMocks = [
   {
     id: 'point-1',
     basePrice: 800,
-    // dateFrom: '2026-04-12T10:00:00.000Z',
-    dateFrom: '12 APR',
-    // dateTo: '2026-04-12T12:00:00.000Z',
-    dateTo: '12 APR',
+    dateFrom: '2026-04-12T10:00:00.000Z',
+    dateTo: '2026-04-12T12:00:00.000Z',
     destination: 'dest-2',
     isFavorite: true,
     offers: [],
@@ -43,7 +39,7 @@ export const pointsMocks = [
   }
 ];
 
-export const offersMocks = [
+const offersMocks = [
   {
     type: 'taxi',
     offers: [
@@ -79,3 +75,5 @@ export const offersMocks = [
     offers: []
   }
 ];
+
+export { destinationsMocks, pointsMocks, offersMocks };
