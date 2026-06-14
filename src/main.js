@@ -19,7 +19,7 @@ const siteHeaderElement = document.querySelector('.trip-main');
 const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
 const offersModel = new OffersModel();
-
+//2
 const boardPresenter = new BoardPresenter({
   boardHeader: siteHeaderElement,
   boardContainer: siteMainElement,
