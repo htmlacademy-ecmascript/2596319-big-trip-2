@@ -19,7 +19,7 @@ const siteHeaderElement = document.querySelector('.trip-main');
 const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
 const offersModel = new OffersModel();
-//2
+
 const boardPresenter = new BoardPresenter({
   boardHeader: siteHeaderElement,
   boardContainer: siteMainElement,
@@ -27,7 +27,7 @@ const boardPresenter = new BoardPresenter({
   destinationsModel: destinationsModel,
   offersModel: offersModel
 });
-
-render(new FilterView(FILTERS), siteFilters);
 //1
+render(new FilterView(FILTERS), siteFilters);
+
 boardPresenter.init();
