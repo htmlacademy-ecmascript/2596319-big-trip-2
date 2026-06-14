@@ -29,5 +29,5 @@ const boardPresenter = new BoardPresenter({
 });
 
 render(new FilterView(FILTERS), siteFilters);
-
+//1
 boardPresenter.init();
