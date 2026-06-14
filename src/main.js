@@ -27,7 +27,7 @@ const boardPresenter = new BoardPresenter({
   destinationsModel: destinationsModel,
   offersModel: offersModel
 });
-
+//1
 render(new FilterView(FILTERS), siteFilters);
 
 boardPresenter.init();
