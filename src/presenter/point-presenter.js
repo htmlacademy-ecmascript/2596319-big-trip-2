@@ -66,6 +66,11 @@ export default class PointPresenter {
     }
   }
 
+  destroy() {
+    remove(this.#pointComponent);
+    remove(this.#pointEditComponent);
+  }
+
   #replacePointToForm() {
     this.#changeMode();
     replace(this.#pointEditComponent, this.#pointComponent);

@@ -1,3 +1,4 @@
+import { BlankPoint } from '../const.js';
 import EventTypeView from './form-elements/event-type-view.js';
 import DestinationInputView from './form-elements/destination-input-view.js';
 import TimeInputView from './form-elements/time-input-view.js';
@@ -9,16 +10,6 @@ import RollupButtonView from './form-elements/rollup-button-view.js';
 import OffersCheckboxesContainerView from './form-elements/offers-checkboxes-container.js';
 import AbstractView from '../framework/view/abstract-view.js';
 import { render } from '../render.js';
-
-const BlankPoint = {
-  BASE_PRICE: 0,
-  DATE_FROM: null,
-  DATE_TO: null,
-  DESTINATION: null,
-  IS_FAVORITE: false,
-  OFFERS: [],
-  TYPE: 'taxi',
-};
 
 function createElementTemplate() {
   return (
