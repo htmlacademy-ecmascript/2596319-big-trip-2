@@ -76,7 +76,7 @@ export default class AddFormView extends AbstractStatefulView {
     render(new CancelButtonView(), header);
     render(new RollupButtonView(), header);
 
-    if (offersByType) {
+    if (offersByType && offersByType.offers && offersByType.offers.length > 0) {
       render(new OffersCheckboxesContainerView(offersByType.offers, this._state.offers), details);
     }
 
