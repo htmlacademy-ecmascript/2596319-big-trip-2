@@ -12,10 +12,12 @@ function createElementTemplate() {
 
 export default class OffersCheckboxesContainerView extends AbstractView {
   #bonuses = null;
+  #chosenOffers = null;
 
-  constructor(bonuses) {
+  constructor(bonuses, chosenOffers = []) {
     super();
     this.#bonuses = bonuses;
+    this.#chosenOffers = chosenOffers;
 
     this.#insertOffers();
   }
@@ -29,7 +31,14 @@ export default class OffersCheckboxesContainerView extends AbstractView {
 
     if (this.#bonuses && Array.isArray(this.#bonuses)) {
       this.#bonuses.forEach((bonus) => {
-        render(new OfferCheckboxView(bonus), container);
+        const isCurrentlyChecked = this.#chosenOffers.includes(bonus.id);
+
+        const updatedBonus = {
+          ...bonus,
+          isChecked: isCurrentlyChecked
+        };
+
+        render(new OfferCheckboxView(updatedBonus), container);
       });
     }
   }

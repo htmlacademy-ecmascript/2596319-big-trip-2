@@ -41,6 +41,7 @@ export default class PointPresenter {
     this.#pointEditComponent = new EditFormView(point, destinations, offers, {
       onFormSubmit: this.#handleFormSubmit,
       onRollupClick: this.#handleFormRollupClick,
+      onCancelButtonClick: this.#handleFormCancelButtonClick
     });
 
     if (prevPointComponent === null || prevPointEditComponent === null) {
@@ -79,6 +80,7 @@ export default class PointPresenter {
   }
 
   #replaceFormToPoint() {
+    this.#pointEditComponent.reset(this.#point);
     replace(this.#pointComponent, this.#pointEditComponent);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
     this.#mode = Mode.DEFAULT;
@@ -95,11 +97,16 @@ export default class PointPresenter {
     this.#replacePointToForm();
   };
 
-  #handleFormSubmit = () => {
+  #handleFormSubmit = (updatedPoint) => {
+    this.#changeData(updatedPoint);
     this.#replaceFormToPoint();
   };
 
   #handleFormRollupClick = () => {
+    this.#replaceFormToPoint();
+  };
+
+  #handleFormCancelButtonClick = () => {
     this.#replaceFormToPoint();
   };
 
