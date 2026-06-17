@@ -1,6 +1,6 @@
 import AbstractView from '../../framework/view/abstract-view';
 
-function createElementTemplate(dateFrom, dateTo) {
+function createElementTemplate() {
   return `<div class="event__field-group  event__field-group--time" bis_skin_checked="1">
             <label class="visually-hidden" for="event-start-time-1">From</label>
             <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="10 APR">
