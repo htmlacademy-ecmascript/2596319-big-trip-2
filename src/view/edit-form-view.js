@@ -70,7 +70,9 @@ export default class EditFormView extends AbstractStatefulView {
 
     render(new EventTypeView(this._state.type), header);
     render(new DestinationInputView(this._state.type, currentDestination, this.#allDestinations), header);
-    render(new TimeInputView(this._state.dateFrom, this._state.dateTo), header);
+    render(new TimeInputView(this._state.dateFrom, this._state.dateTo, {
+      dateChangeHandler: this.#dateChangeHandler
+    }), header);
     render(new PriceInputView(this._state.basePrice), header);
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
@@ -125,6 +127,12 @@ export default class EditFormView extends AbstractStatefulView {
 
     this.updateElement({
       offers: currentOffers,
+    });
+  };
+
+  #dateChangeHandler = (userDate, type) => {
+    this._setState({
+      [type]: userDate,
     });
   };
 
