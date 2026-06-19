@@ -24,22 +24,13 @@ export default class TimeInputView extends AbstractView {
     this.#dateFrom = dateFrom;
     this.#dateTo = dateTo;
     this.#handleDateChange = dateChangeHandler;
-
-    if (document.querySelector('.event--edit')) {
-      this.#setDatepickers();
-      document.querySelector('.event__rollup-btn').addEventListener('click', () => {
-        this.removeElement();
-      });
-    } else {
-      this.#removeElement();
-    }
   }
 
   get template() {
     return createElementTemplate(this.#dateFrom, this.#dateTo);
   }
 
-  #removeElement() {
+  removeDatepickers() {
     if (this.#datepickerFrom) {
       this.#datepickerFrom.destroy();
       this.#datepickerFrom = null;
@@ -51,7 +42,7 @@ export default class TimeInputView extends AbstractView {
     }
   }
 
-  #setDatepickers() {
+  setDatepickers() {
     const commonConfigs = {
       enableTime: true,
       dateFormat: 'd/m/y H:i',

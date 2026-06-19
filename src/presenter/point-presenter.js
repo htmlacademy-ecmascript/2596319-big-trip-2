@@ -13,6 +13,9 @@ export default class PointPresenter {
   #changeMode = null;
 
   #point = null;
+  #destinations = [];
+  #offers = [];
+
   #pointComponent = null;
   #pointEditComponent = null;
   #mode = Mode.DEFAULT;
@@ -25,12 +28,14 @@ export default class PointPresenter {
 
   init(point, destinations, offers) {
     this.#point = point;
+    this.#destinations = destinations;
+    this.#offers = offers;
 
     const prevPointComponent = this.#pointComponent;
     const prevPointEditComponent = this.#pointEditComponent;
 
-    const destination = destinations.find((dest) => dest.id === point.destination);
-    const offersByType = offers.find((opt) => opt.type === point.type).offers;
+    const destination = this.#destinations.find((dest) => dest.id === point.destination);
+    const offersByType = this.#offers.find((opt) => opt.type === point.type).offers;
     const selectedOffers = offersByType.filter((opt) => point.offers.includes(opt.id));
 
     this.#pointComponent = new PointView(point, destination, selectedOffers, {
@@ -38,9 +43,10 @@ export default class PointPresenter {
       onFavoriteClick: this.#handleFavoriteClick,
     });
 
-    this.#pointEditComponent = new EditFormView(point, destinations, offers, {
+    this.#pointEditComponent = new EditFormView(this.#point, this.#destinations, this.#offers, {
       onFormSubmit: this.#handleFormSubmit,
       onRollupClick: this.#handleFormRollupClick,
+      onEditModeEnter: this.#handleRollupClick,
       onCancelButtonClick: this.#handleFormCancelButtonClick
     });
 
@@ -74,6 +80,7 @@ export default class PointPresenter {
 
   #replacePointToForm() {
     this.#changeMode();
+    this.#pointEditComponent.initDatepickers();
     replace(this.#pointEditComponent, this.#pointComponent);
     document.addEventListener('keydown', this.#escKeyDownHandler);
     this.#mode = Mode.EDITING;
