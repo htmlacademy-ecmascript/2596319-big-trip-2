@@ -65,6 +65,7 @@ export default class EditFormView extends AbstractStatefulView {
 
     header.innerHTML = '';
     details.innerHTML = '';
+    //1
 
     const currentDestination = this.#allDestinations.find((dest) => dest.id === this._state.destination);
     const offersByType = this.#allOffers.find((opt) => opt.type === this._state.type);
