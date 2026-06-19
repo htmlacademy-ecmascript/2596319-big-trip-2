@@ -25,14 +25,21 @@ export default class TimeInputView extends AbstractView {
     this.#dateTo = dateTo;
     this.#handleDateChange = dateChangeHandler;
 
-    this.#setDatepickers();
+    if (document.querySelector('.event--edit')) {
+      this.#setDatepickers();
+      document.querySelector('.event__rollup-btn').addEventListener('click', () => {
+        this.removeElement();
+      });
+    } else {
+      this.#removeElement();
+    }
   }
 
   get template() {
     return createElementTemplate(this.#dateFrom, this.#dateTo);
   }
 
-  removeElement() {
+  #removeElement() {
     if (this.#datepickerFrom) {
       this.#datepickerFrom.destroy();
       this.#datepickerFrom = null;
