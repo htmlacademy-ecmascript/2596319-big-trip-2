@@ -1,12 +1,16 @@
 import AbstractView from '../framework/view/abstract-view';
-import { humanizePointDate, humanizePointTime, getPointDuration } from '../utils.js';
+import { getPointDuration } from '../utils.js';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+
+dayjs.extend(duration);
 
 function createElementTemplate(point, destination, offers) {
   const { basePrice, type, isFavorite, dateFrom, dateTo } = point;
 
-  const dateStart = humanizePointDate(dateFrom);
-  const timeStart = humanizePointTime(dateFrom);
-  const timeEnd = humanizePointTime(dateTo);
+  const dateStart = dayjs(dateFrom).format('MMM DD');
+  const timeStart = dayjs(dateFrom).format('HH:mm');
+  const timeEnd = dayjs(dateTo).format('HH:mm');
   const durationText = getPointDuration(dateFrom, dateTo);
 
   const offersTemplate = offers.map((offer) => `

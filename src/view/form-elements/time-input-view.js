@@ -24,13 +24,20 @@ export default class TimeInputView extends AbstractView {
     this.#dateFrom = dateFrom;
     this.#dateTo = dateTo;
     this.#handleDateChange = dateChangeHandler;
+
+    this.#setDatepickers();
   }
 
   get template() {
     return createElementTemplate(this.#dateFrom, this.#dateTo);
   }
 
-  removeDatepickers() {
+  removeTimeInput() {
+    super.removeElement();
+    this.#destroyDatepickers();
+  }
+
+  #destroyDatepickers() {
     if (this.#datepickerFrom) {
       this.#datepickerFrom.destroy();
       this.#datepickerFrom = null;
@@ -42,7 +49,7 @@ export default class TimeInputView extends AbstractView {
     }
   }
 
-  setDatepickers() {
+  #setDatepickers() {
     const commonConfigs = {
       enableTime: true,
       dateFormat: 'd/m/y H:i',

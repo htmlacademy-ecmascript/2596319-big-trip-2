@@ -65,7 +65,6 @@ export default class EditFormView extends AbstractStatefulView {
 
     header.innerHTML = '';
     details.innerHTML = '';
-    //1
 
     const currentDestination = this.#allDestinations.find((dest) => dest.id === this._state.destination);
     const offersByType = this.#allOffers.find((opt) => opt.type === this._state.type);
@@ -88,10 +87,6 @@ export default class EditFormView extends AbstractStatefulView {
 
     render(new DestinationBlockView(description), details);
   }
-
-  initDatepickers = () => {
-    this.timeInputView.setDatepickers();
-  };
 
   #typeChangeHandler = (evt) => {
     evt.preventDefault();
@@ -147,7 +142,11 @@ export default class EditFormView extends AbstractStatefulView {
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
     this.#handleFormSubmit(EditFormView.parseStateToPoint(this._state));
-    this.timeInputView.removeDatepickers();
+  };
+
+  destroy = () => {
+    super.removeElement();
+    this.timeInputView.removeTimeInput();
   };
 
   #rollupClickHandler = (evt) => {
@@ -164,7 +163,6 @@ export default class EditFormView extends AbstractStatefulView {
   }
 
   reset(point) {
-    this.timeInputView.removeDatepickers();
     this.updateElement(
       EditFormView.parsePointToState(point)
     );
