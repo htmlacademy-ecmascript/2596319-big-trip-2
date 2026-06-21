@@ -28,14 +28,16 @@ export default class EditFormView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleRollupClick = null;
   #handleFormCancelButtonClick = null;
+  #onEditModeEnter = null;
 
-  constructor(point = BlankPoint, allDestinations, allOffers, { onFormSubmit, onRollupClick, onCancelButtonClick }) {
+  constructor(point = BlankPoint, allDestinations, allOffers, { onFormSubmit, onRollupClick, onEditModeEnter, onCancelButtonClick }) {
     super();
     this.#allDestinations = allDestinations;
     this.#allOffers = allOffers;
     this.#handleFormSubmit = onFormSubmit;
     this.#handleRollupClick = onRollupClick;
     this.#handleFormCancelButtonClick = onCancelButtonClick;
+    this.#onEditModeEnter = onEditModeEnter;
 
     this._setState(EditFormView.parsePointToState(point));
 
@@ -68,9 +70,12 @@ export default class EditFormView extends AbstractStatefulView {
     const offersByType = this.#allOffers.find((opt) => opt.type === this._state.type);
     const description = currentDestination ? currentDestination.description : '';
 
+    this.timeInputView = new TimeInputView(this._state.dateFrom, this._state.dateTo, {
+      dateChangeHandler: this.#dateChangeHandler
+    });
     render(new EventTypeView(this._state.type), header);
     render(new DestinationInputView(this._state.type, currentDestination, this.#allDestinations), header);
-    render(new TimeInputView(this._state.dateFrom, this._state.dateTo), header);
+    render(this.timeInputView, header);
     render(new PriceInputView(this._state.basePrice), header);
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
@@ -128,9 +133,20 @@ export default class EditFormView extends AbstractStatefulView {
     });
   };
 
+  #dateChangeHandler = (userDate, type) => {
+    this._setState({
+      [type]: userDate,
+    });
+  };
+
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
     this.#handleFormSubmit(EditFormView.parseStateToPoint(this._state));
+  };
+
+  destroy = () => {
+    super.removeElement();
+    this.timeInputView.removeTimeInput();
   };
 
   #rollupClickHandler = (evt) => {

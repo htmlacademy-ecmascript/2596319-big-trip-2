@@ -1,7 +1,17 @@
 import AbstractView from '../framework/view/abstract-view';
+import { getPointDuration } from '../utils.js';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+
+dayjs.extend(duration);
 
 function createElementTemplate(point, destination, offers) {
   const { basePrice, type, isFavorite, dateFrom, dateTo } = point;
+
+  const dateStart = dayjs(dateFrom).format('MMM DD');
+  const timeStart = dayjs(dateFrom).format('HH:mm');
+  const timeEnd = dayjs(dateTo).format('HH:mm');
+  const durationText = getPointDuration(dateFrom, dateTo);
 
   const offersTemplate = offers.map((offer) => `
                 <li class="event__offer">
@@ -13,18 +23,18 @@ function createElementTemplate(point, destination, offers) {
   const favoriteClass = isFavorite ? 'event__favorite-btn--active' : '';
   return `<li class="trip-events__item">
             <div class="event" bis_skin_checked="1">
-              <time class="event__date" datetime="${dateFrom}">${dateFrom}</time>
+              <time class="event__date" datetime="${dateFrom}">${dateStart}</time>
               <div class="event__type" bis_skin_checked="1">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
               </div>
               <h3 class="event__title">${type} ${destination.name}</h3>
               <div class="event__schedule" bis_skin_checked="1">
                 <p class="event__time">
-                  <time class="event__start-time" datetime="${dateFrom}">${dateFrom}</time>
+                  <time class="event__start-time" datetime="${dateFrom}">${timeStart}</time>
                   —
-                  <time class="event__end-time" datetime="${dateTo}">${dateTo}</time>
+                  <time class="event__end-time" datetime="${dateTo}">${timeEnd}</time>
                 </p>
-                <p class="event__duration">01H 35M</p>
+                <p class="event__duration">${durationText}</p>
               </div>
               <p class="event__price">
                 €&nbsp;<span class="event__price-value">${basePrice}</span>
