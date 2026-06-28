@@ -1,11 +1,31 @@
+import Observable from '../framework/observable.js';
 import { destinationsMocks } from './mocks.js';
 
-export default class DestinationsModel {
+export default class DestinationsModel extends Observable {
+  #destinations = [];
+
   constructor() {
-    this.destinations = destinationsMocks;
+    super();
+    this.#destinations = destinationsMocks;
   }
 
-  fetchDestinations() {
-    return this.destinations;
+  get destinations() {
+    return this.#destinations;
+  }
+
+  set destinations(destinations) {
+    this.#destinations = destinations;
+  }
+
+  updateDestination(updateType, update) {
+    const index = this.#destinations.find((dest) => dest.id === update.id);
+
+    this.#destinations = [
+      ...this.#destinations.slice(0, index),
+      update,
+      ...this.#destinations.slice(index + 1),
+    ];
+
+    this._notify(updateType, update);
   }
 }

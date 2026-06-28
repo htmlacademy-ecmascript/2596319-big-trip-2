@@ -1,7 +1,9 @@
 import AbstractView from '../framework/view/abstract-view';
 
-function createSingleElementTemplate(filter, isChecked) {
-  const { name, isDisabled } = filter;
+function createSingleElementTemplate(filter, currentFilterType) {
+  const { type, name, isDisabled } = filter;
+  const isChecked = type === currentFilterType;
+
   return (
     `<div class="trip-filters__filter">
       <input
@@ -18,9 +20,9 @@ function createSingleElementTemplate(filter, isChecked) {
   );
 }
 
-function createElementTemplate(filters = []) {
+function createElementTemplate(filters, currentFilterType) {
   const filterItemsTemplate = filters
-    .map((filter, index) => createSingleElementTemplate(filter, index === 0))
+    .map((filter) => createSingleElementTemplate(filter, currentFilterType))
     .join('');
 
   return (
@@ -33,13 +35,24 @@ function createElementTemplate(filters = []) {
 
 export default class FilterView extends AbstractView {
   #filters = null;
+  #currentFilterType = null;
+  #handleFilterTypeChange = null;
 
-  constructor(filters) {
+  constructor({ filters, currentFilterType, onFilterTypeChange }) {
     super();
     this.#filters = filters;
+    this.#currentFilterType = currentFilterType;
+    this.#handleFilterTypeChange = onFilterTypeChange;
+
+    this.element.addEventListener('change', this.#filterTypeChangeHandler);
   }
 
   get template() {
-    return createElementTemplate(this.#filters);
+    return createElementTemplate(this.#filters, this.#currentFilterType);
   }
+
+  #filterTypeChangeHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFilterTypeChange(evt.target.value);
+  };
 }

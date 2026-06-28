@@ -12,7 +12,7 @@ const Texts = {
   EVERYTHING: 'Click New Event to create your first point',
   PAST: 'There are no past events now',
   PRESENT: 'There are no present events now',
-  FUTURE: 'There are no future events now',
+  FUTURE: 'There are no future events now'
 };
 
 const SortType = {
@@ -20,8 +20,29 @@ const SortType = {
   EVENT: 'event',
   TIME: 'time',
   PRICE: 'price',
-  OFFER: 'offer',
+  OFFER: 'offer'
 };
 
-export { BlankPoint, Texts, SortType };
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR'
+};
+
+const FilterType = {
+  EVERYTHING: 'EVERYTHING',
+  FUTURE: 'FUTURE',
+  PRESENT: 'PRESENT',
+  PAST: 'PAST',
+};
+
+const DEFAULT_FILTER_TYPE = FilterType.EVERYTHING;
+
+const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT'
+};
+
+export { BlankPoint, Texts, SortType, UserAction, UpdateType, FilterType, DEFAULT_FILTER_TYPE };
 
