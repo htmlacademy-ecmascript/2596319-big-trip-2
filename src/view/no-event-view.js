@@ -1,7 +1,7 @@
-import { Texts } from '../const.js';
+import { Texts, DEFAULT_FILTER_TYPE } from '../const.js';
 import AbstractView from '../framework/view/abstract-view';
 
-function createElementTemplate(filterType) {
+function createElementTemplate({filterType}) {
   const noEventText = Texts[filterType] || Texts.EVERYTHING;
   return `<p class="trip-events__msg">${noEventText}</p>`;
 }
@@ -9,7 +9,7 @@ function createElementTemplate(filterType) {
 export default class NoEventView extends AbstractView {
   #filterType = null;
 
-  constructor(filterType = 'everything') {
+  constructor(filterType = DEFAULT_FILTER_TYPE) {
     super();
     this.#filterType = filterType;
   }

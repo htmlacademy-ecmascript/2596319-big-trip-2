@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import isBetween from 'dayjs/plugin/isBetween';
+import { FilterType } from './const.js';
 
 const sortPointsByDay = (pointA, pointB) => new Date(pointA.dateFrom) - new Date(pointB.dateFrom);
 const sortPointsByTime = (pointA, pointB) => {
@@ -11,6 +13,7 @@ const sortPointsByPrice = (pointA, pointB) => pointB.basePrice - pointA.basePric
 
 
 dayjs.extend(duration);
+dayjs.extend(isBetween);
 
 const getPointDuration = (dateFrom, dateTo) => {
   const timeDiff = dayjs(dateTo).diff(dayjs(dateFrom));
@@ -25,4 +28,15 @@ const getPointDuration = (dateFrom, dateTo) => {
   return pointDuration.format('mm[M]');
 };
 
-export { sortPointsByDay, sortPointsByTime, sortPointsByPrice, getPointDuration };
+const isPointFuture = (point) => dayjs().isBefore(point.dateFrom, 'minute');
+const isPointPresent = (point) => dayjs().isBetween(point.dateFrom, point.dateTo, 'minute', '[]');
+const isPointPast = (point) => dayjs().isAfter(point.dateTo, 'minute');
+
+const filter = {
+  [FilterType.EVERYTHING]: (points) => points,
+  [FilterType.FUTURE]: (points) => points.filter(isPointFuture),
+  [FilterType.PRESENT]: (points) => points.filter(isPointPresent),
+  [FilterType.PAST]: (points) => points.filter(isPointPast),
+};
+
+export { sortPointsByDay, sortPointsByTime, sortPointsByPrice, getPointDuration, filter };

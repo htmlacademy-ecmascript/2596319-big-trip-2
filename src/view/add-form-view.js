@@ -55,6 +55,7 @@ export default class AddFormView extends AbstractStatefulView {
     this.element.querySelector('.event__input--destination').addEventListener('change', this.#destinationChangeHandler);
     this.element.querySelector('.event__reset-btn').addEventListener('click', this.#handleFormCancelButtonClick);
     this.element.querySelectorAll('.event__offer-selector').forEach((checkbox) => checkbox.addEventListener('change', this.#offersChangeHandler));
+    this.element.querySelector('.event__input--price').addEventListener('input', this.#priceInputChangeHandler);
   }
 
   #renderForm() {
@@ -64,13 +65,20 @@ export default class AddFormView extends AbstractStatefulView {
     header.innerHTML = '';
     details.innerHTML = '';
 
+    if (this.timeInputView) {
+      this.timeInputView.removeTimeInput();
+    }
+
     const currentDestination = this.#allDestinations.find((dest) => dest.id === this._state.destination);
     const offersByType = this.#allOffers.find((opt) => opt.type === this._state.type);
     const description = currentDestination ? currentDestination.description : '';
 
+    this.timeInputView = new TimeInputView(this._state.dateFrom, this._state.dateTo, {
+      dateChangeHandler: this.#dateChangeHandler
+    });
     render(new EventTypeView(this._state.type), header);
     render(new DestinationInputView(this._state.type, currentDestination, this.#allDestinations), header);
-    render(new TimeInputView(this._state.dateFrom, this._state.dateTo), header);
+    render(this.timeInputView, header);
     render(new PriceInputView(this._state.basePrice), header);
     render(new SaveButtonView(), header);
     render(new CancelButtonView(), header);
@@ -100,6 +108,7 @@ export default class AddFormView extends AbstractStatefulView {
     const currentDestination = this.#allDestinations.find((dest) => dest.name === evt.target.value);
 
     if (!currentDestination) {
+      evt.target.value = '';
       return;
     }
 
@@ -112,7 +121,6 @@ export default class AddFormView extends AbstractStatefulView {
     if (evt.target.tagName !== 'INPUT' || !evt.target.classList.contains('event__offer-checkbox')) {
       return;
     }
-
     const clickedOfferId = isNaN(evt.target.value) ? evt.target.value : Number(evt.target.value);
 
     const currentOffers = [...this._state.offers];
@@ -129,9 +137,38 @@ export default class AddFormView extends AbstractStatefulView {
     });
   };
 
+  #priceInputChangeHandler = (evt) => {
+    evt.preventDefault();
+
+    let validatedValue = evt.target.value.replace(/\D/g, '');
+    if (validatedValue === '') {
+      validatedValue = '100';
+    }
+
+    let priceNumber = parseInt(validatedValue, 10);
+    if (priceNumber === 0) {
+      priceNumber = 100;
+    }
+
+    this._setState({
+      basePrice: priceNumber
+    });
+  };
+
+  #dateChangeHandler = (userDate, type) => {
+    this._setState({
+      [type]: userDate,
+    });
+  };
+
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
     this.#handleFormSubmit(AddFormView.parseStateToPoint(this._state));
+  };
+
+  destroy = () => {
+    super.removeElement();
+    this.timeInputView.removeTimeInput();
   };
 
   #rollupClickHandler = (evt) => {

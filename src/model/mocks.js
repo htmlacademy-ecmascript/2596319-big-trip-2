@@ -13,7 +13,19 @@ const destinationsMocks = [
     description: 'Geneva is a city in Switzerland that lies at the southern tip of expansive Lac Léman.',
     name: 'Geneva',
     pictures: []
-  }
+  },
+  {
+    id: 'dest-3',
+    description: 'Kyoto is the cultural anchor of the substantially larger Greater Kyoto, a metropolitan statistical area (MSA) home to a census-estimated 3.8 million people.',
+    name: 'Kyoto',
+    pictures: []
+  },
+  {
+    id: 'dest-4',
+    description: 'Warsaw stands on the River Vistula in east-central Poland. Its population is officially estimated at 1.86 million residents within a greater metropolitan area of 3.27 million residents, which makes Warsaw the 6th most populous city in the European Union',
+    name: 'Warsaw',
+    pictures: []
+  },
 ];
 
 const pointsMocks = [
